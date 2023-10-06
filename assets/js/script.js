@@ -26,8 +26,8 @@ $(document).ready(function () {
   })
 
   function parseTime(timeString) {
-    const parts = timeString.split(":");
-    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+    const parts = timeString;
+    return parseInt();
   }
 
   function today() {
@@ -38,6 +38,18 @@ $(document).ready(function () {
   }
 });
 
+var saveButton = document.getElementsByClassName("saveBtn");
+var text = document.getElementsByClassName("description");
+
+function toDo() {
+  var cText = {
+    text,
+  }
+  
+  localStorage.setItem("cText", JSON.stringify(cText));
+
+$(".saveBtn").click(toDo);
+};
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener

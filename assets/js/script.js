@@ -3,13 +3,49 @@ $('#currentDay').text(today);
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
-$(function () {
+$(document).ready(function () {
+  $('.time-block').click(function () {
+    const timeElement = $(this).find(".time");
+    const timeRange = timeElement.text().split(" - ");
+    const startTime = parseTime(timeRange[0]);
+    const endTime = parseTime(timeRange[1]);
+
+    const currentTime = today();
+
+ if (today < startTime) {
+      $(this).addClass("future");
+    } else if (currentTime >= startTime && currentTime <= endTime) {
+      $(this).addClass("present");
+    } else {
+      $(this).addClass("past");
+    }
+
+    $(this).click(function () {
+      $(this).toggleClass("completed");
+    });
+  })
+
+  function parseTime(timeString) {
+    const parts = timeString.split(":");
+    return parseInt(parts[0]) * 60 + parseInt(parts[1]);
+  }
+
+  function today() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    return hours * 60 + minutes;
+  }
+});
+
   // TODO: Add a listener for click events on the save button. This code should
   // use the id in the containing time-block as a key to save the user input in
   // local storage. HINT: What does `this` reference in the click listener
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
+
+
   //
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
@@ -22,4 +58,4 @@ $(function () {
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-});
+
